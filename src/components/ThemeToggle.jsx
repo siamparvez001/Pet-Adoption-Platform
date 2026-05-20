@@ -1,29 +1,21 @@
 "use client";
-import { useTheme } from "next-themes";
 import { Sun, Moon } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useTheme } from "./Providers";
+import { useState, useEffect } from "react";
 
 const ThemeToggle = () => {
-    const { theme, setTheme } = useTheme();
+    const { theme, toggleTheme } = useTheme();
     const [mounted, setMounted] = useState(false);
 
-    // ✅ এইটাই fix — mount হওয়ার আগে কিছু render করবে না
-    useEffect(() => {
-        setMounted(true);
-    }, []);
-
+    useEffect(() => setMounted(true), []);
     if (!mounted) return null;
 
     return (
         <button
-            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+            onClick={toggleTheme}
             className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors dark:text-white"
         >
-            {theme === "dark" ? (
-                <Sun className="w-5 h-5" />
-            ) : (
-                <Moon className="w-5 h-5" />
-            )}
+            {theme === "dark" ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
         </button>
     );
 };

@@ -1,11 +1,7 @@
-
-"use client";
-
 import Image from "next/image";
 import Link from "next/link";
 import { IoLocationOutline } from "react-icons/io5";
 import { DollarSign } from "lucide-react";
-import toast from "react-hot-toast";
 
 const speciesEmoji = {
     Dog: "🐕",
@@ -15,19 +11,8 @@ const speciesEmoji = {
     Other: "🐾",
 };
 
-const PetCard = ({ pet }) => {
-    // case-insensitive check — "Adopted" বা "adopted" দুটোই কাজ করবে
+const FeaturedCard = ({ pet }) => {
     const isAdopted = pet.status?.toLowerCase() === "adopted";
-
-    const handleAdoptClick = () => {
-        toast.error("This pet has already been adopted!", {
-            icon: "🐾",
-            style: {
-                borderRadius: "12px",
-                fontWeight: "500",
-            },
-        });
-    };
 
     return (
         <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100 dark:border-gray-700 flex flex-col">
@@ -48,8 +33,8 @@ const PetCard = ({ pet }) => {
 
                 {/* Status badge — top right */}
                 <span className={`absolute top-3 right-3 px-3 py-1 rounded-full text-xs font-semibold shadow-sm ${isAdopted
-                        ? "bg-red-100 text-red-600 dark:bg-red-900/60 dark:text-red-300"
-                        : "bg-green-100 text-green-700 dark:bg-green-900/60 dark:text-green-300"
+                    ? "bg-red-100 text-red-600 dark:bg-red-900/60 dark:text-red-300"
+                    : "bg-green-100 text-green-700 dark:bg-green-900/60 dark:text-green-300"
                     }`}>
                     {isAdopted ? "⊘ Adopted" : "✓ Available"}
                 </span>
@@ -87,10 +72,8 @@ const PetCard = ({ pet }) => {
                 >
                     View Details
                 </Link>
-
                 {isAdopted ? (
                     <button
-                        onClick={handleAdoptClick}
                         className="flex-1 py-2 rounded-xl text-sm font-semibold bg-gray-200 dark:bg-gray-700 text-gray-400 dark:text-gray-500 cursor-not-allowed"
                     >
                         Adopted
@@ -108,4 +91,4 @@ const PetCard = ({ pet }) => {
     );
 };
 
-export default PetCard;
+export default FeaturedCard;
