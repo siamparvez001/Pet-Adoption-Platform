@@ -112,7 +112,7 @@ const Navbar = () => {
                         ) : (
                             <div className="flex gap-3">
                                 <Link href="/signin" className="px-4 py-2 rounded-lg border border-gray-300 hover:bg-gray-100 transition-colors">Sign In</Link>
-                                <Link href="/signup" className="px-4 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition-colors">Sign Up</Link>
+                                <Link href="/signup" className="px-4 py-2 rounded-lg bg-green-600 text-white hover:bg-green-700 transition-colors">Sign Up</Link>
                             </div>
                         )}
                     </div>
@@ -155,7 +155,7 @@ const Navbar = () => {
                             ) : (
                                 <div className="flex flex-col gap-3">
                                     <Link href="/signin" onClick={() => setMenuOpen(false)} className="px-4 py-2 rounded-lg border border-gray-300 text-center hover:bg-gray-100">Sign In</Link>
-                                    <Link href="/signup" onClick={() => setMenuOpen(false)} className="px-4 py-2 rounded-lg bg-blue-600 text-white text-center hover:bg-blue-700">Sign Up</Link>
+                                    <Link href="/signup" onClick={() => setMenuOpen(false)} className="px-4 py-2 rounded-lg bg-green-600 text-white text-center hover:bg-green-700">Sign Up</Link>
                                 </div>
                             )}
                         </div>
