@@ -1,6 +1,5 @@
 "use client";
 
-import { Check } from "@gravity-ui/icons";
 import { Button, Description, FieldError, Form, Input, Label, TextField } from "@heroui/react";
 import { FaArrowRightLong } from "react-icons/fa6";
 import { redirect } from "next/navigation";
@@ -12,38 +11,50 @@ const SignUpPage = () => {
 
         const formData = new FormData(e.currentTarget);
         const user = Object.fromEntries(formData.entries());
-        // console.log(user)
-        const{data, error} = await authClient.signUp.email({
+
+        const { data, error } = await authClient.signUp.email({
             email: user.email,
             password: user.password,
             name: user.name,
-            image: user.image
-        })
-        console.log({data, error})
-        // console.log(error.message)
-        if(data){
-            redirect("/")
-        }
-        if(error){
-            alert(error.message)
-        }
+            image: user.image,
+        });
 
+        console.log({ data, error });
+
+        if (data) {
+            redirect("/");
+        }
+        if (error) {
+            alert(error.message);
+        }
     };
-    return (
-        <div className="flex items-center justify-center my-20 bg-white ">
-            <Form onSubmit={onSubmit} className="flex w-96 flex-col gap-4 border px-10 py-7 rounded-3xl shadow-2xl"  >
-                <h1 className="text-center"><span className="text-2xl font-bold">Join </span><span className="text-2xl font-bold text-blue-500">Mentora</span></h1>
-                <p className="text-center text-muted mb-5">Create your account to start learning</p>
-                <TextField
-                    isRequired
-                    name="name"
-                    type="text"
-                >
-                    <Label>Name</Label>
-                    <Input placeholder="John Doe" />
-                    <FieldError />
 
+    return (
+        <div className="flex items-center justify-center my-20 bg-white dark:bg-gray-950 min-h-[80vh]">
+            <Form
+                onSubmit={onSubmit}
+                className="flex w-96 flex-col gap-4 border border-gray-200 dark:border-gray-700 px-10 py-7 rounded-3xl shadow-2xl bg-white dark:bg-gray-900"
+            >
+                {/* Header */}
+                <h1 className="text-center">
+                    <span className="text-2xl font-bold dark:text-white">Join </span>
+                    <span className="text-2xl font-bold text-green-600">PawsHome</span>
+                </h1>
+                <p className="text-center text-gray-500 dark:text-gray-400 mb-5">
+                    Create your account to get started
+                </p>
+
+                {/* Name */}
+                <TextField isRequired name="name" type="text">
+                    <Label className="dark:text-gray-300">Name</Label>
+                    <Input
+                        placeholder="John Doe"
+                        className="dark:bg-gray-800 dark:text-white dark:border-gray-600"
+                    />
+                    <FieldError />
                 </TextField>
+
+                {/* Email */}
                 <TextField
                     isRequired
                     name="email"
@@ -55,21 +66,25 @@ const SignUpPage = () => {
                         return null;
                     }}
                 >
-                    <Label>Email</Label>
-                    <Input placeholder="john@example.com" />
+                    <Label className="dark:text-gray-300">Email</Label>
+                    <Input
+                        placeholder="john@example.com"
+                        className="dark:bg-gray-800 dark:text-white dark:border-gray-600"
+                    />
                     <FieldError />
                 </TextField>
-                <TextField
-                    
-                    name="image"
-                    type="url"
-                    
-                >
-                    <Label>Profile Image URL</Label>
-                    <Input placeholder="https://example.com/profile.jpg" />
-                    <FieldError />
 
+                {/* Profile Image URL */}
+                <TextField name="image" type="url">
+                    <Label className="dark:text-gray-300">Profile Image URL</Label>
+                    <Input
+                        placeholder="https://example.com/profile.jpg"
+                        className="dark:bg-gray-800 dark:text-white dark:border-gray-600"
+                    />
+                    <FieldError />
                 </TextField>
+
+                {/* Password */}
                 <TextField
                     isRequired
                     minLength={8}
@@ -88,20 +103,36 @@ const SignUpPage = () => {
                         return null;
                     }}
                 >
-                    <Label>Password</Label>
-                    <Input placeholder="Enter your password" />
-                    <Description>Must be at least 8 characters with 1 uppercase and 1 number</Description>
+                    <Label className="dark:text-gray-300">Password</Label>
+                    <Input
+                        placeholder="Enter your password"
+                        className="dark:bg-gray-800 dark:text-white dark:border-gray-600"
+                    />
+                    <Description className="dark:text-gray-400">
+                        Must be at least 8 characters with 1 uppercase and 1 number
+                    </Description>
                     <FieldError />
                 </TextField>
-                <div className="flex gap-2 justify-center items-center ">
-                    <Button type="submit" className={"px-10 py-7 text-xl font-semibold"}>
-                        Create Account
-                        <FaArrowRightLong></FaArrowRightLong>
-                    </Button>
 
+                {/* Submit Button */}
+                <div className="flex gap-2 justify-center items-center">
+                    <Button
+                        type="submit"
+                        className="px-10 py-7 text-xl font-semibold bg-green-600 text-white hover:bg-green-700 transition-colors rounded-2xl"
+                    >
+                        Create Account
+                        <FaArrowRightLong />
+                    </Button>
                 </div>
+
+                {/* Sign In Link */}
                 <div className="flex justify-center items-center my-5">
-                    <p>Already have an account? <a href="/signin" className="text-blue-500 font-semibold">Sign in</a></p>
+                    <p className="dark:text-gray-400">
+                        Already have an account?{" "}
+                        <a href="/signin" className="text-green-600 font-semibold hover:text-green-700">
+                            Sign in
+                        </a>
+                    </p>
                 </div>
             </Form>
         </div>
