@@ -83,7 +83,7 @@ const Navbar = () => {
                     {/* Desktop Nav Links */}
                     <ul className="hidden md:flex space-x-2">
                         <li><NavLink href="/">Home</NavLink></li>
-                        <li><NavLink href="/all-pets">All Pets</NavLink></li>
+                        <li><NavLink href="/pets">All Pets</NavLink></li>
                     </ul>
 
                     {/* Desktop Auth */}
