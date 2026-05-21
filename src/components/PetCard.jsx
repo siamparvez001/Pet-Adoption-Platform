@@ -30,7 +30,7 @@ const PetCard = ({ pet }) => {
     };
 
     return (
-        <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100 dark:border-gray-700 flex flex-col">
+        <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 overflow-hidden border border-gray-100 dark:border-gray-700 flex flex-col">
 
             {/* Image */}
             <div className="relative w-full h-52 overflow-hidden">
@@ -48,8 +48,8 @@ const PetCard = ({ pet }) => {
 
                 {/* Status badge — top right */}
                 <span className={`absolute top-3 right-3 px-3 py-1 rounded-full text-xs font-semibold shadow-sm ${isAdopted
-                        ? "bg-red-100 text-red-600 dark:bg-red-900/60 dark:text-red-300"
-                        : "bg-green-100 text-green-700 dark:bg-green-900/60 dark:text-green-300"
+                    ? "bg-red-100 text-red-600 dark:bg-red-900/60 dark:text-red-300"
+                    : "bg-green-100 text-green-700 dark:bg-green-900/60 dark:text-green-300"
                     }`}>
                     {isAdopted ? "⊘ Adopted" : "✓ Available"}
                 </span>
