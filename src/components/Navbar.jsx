@@ -28,7 +28,7 @@ const NavLink = ({ href, onClick, children, mobile }) => {
             {children}
         </Link>
     );
-}; 
+};
 const Navbar = () => {
     const { data: session } = authClient.useSession();
     const user = session?.user;
@@ -121,12 +121,20 @@ const Navbar = () => {
                                                 {user.email}
                                             </p>
                                         </div>
+                                        {/* ✅ Dashboard link */}
+                                        <Link
+                                            href="/add-pet"
+                                            onClick={() => setOpen(false)}
+                                            className="w-full flex items-center gap-2 px-4 py-2 text-sm dark:text-white hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors mt-1"
+                                        >
+                                            🐾 Dashboard
+                                        </Link>
                                         <button
                                             onClick={() => {
                                                 authClient.signOut();
                                                 setOpen(false);
                                             }}
-                                            className="w-full flex items-center gap-2 px-4 py-2 text-sm text-red-500 hover:bg-red-50 dark:hover:bg-red-950 transition-colors mt-1"
+                                            className="w-full flex items-center gap-2 px-4 py-2 text-sm text-red-500 hover:bg-red-50 dark:hover:bg-red-950 transition-colors"
                                         >
                                             <FaSignOutAlt /> Sign Out
                                         </button>

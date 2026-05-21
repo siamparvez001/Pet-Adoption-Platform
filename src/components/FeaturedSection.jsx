@@ -1,5 +1,6 @@
 import { fetchFeaturedPets } from "@/lib/pets/data";
 import FeaturedCard from "./FeaturedCard";
+import Link from "next/link";
 
 const FeaturedSection = async () => {
     const pets = await fetchFeaturedPets();
@@ -13,6 +14,11 @@ const FeaturedSection = async () => {
                 {pets?.map((pet) => (
                     <FeaturedCard key={pet._id} pet={pet} />
                 ))}
+            </div>
+            <div className="text-center mt-10 rounded-lg bg-rose-100 dark:bg-rose-900 p-4 w-fit mx-auto">
+                <Link href="/pets" className="text-rose-500 hover:text-rose-600 dark:text-white dark:hover:text-rose-300 font-semibold">
+                    View All Pets
+                </Link>
             </div>
         </section>
     );
