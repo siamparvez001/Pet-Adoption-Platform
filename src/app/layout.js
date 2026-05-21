@@ -5,6 +5,8 @@ import Footer from "@/components/Footer";
 import { ThemeProvider } from "next-themes";
 import Providers from "@/components/Providers";
 import { Toaster } from "react-hot-toast";
+import Ready from "@/components/Ready";
+import PetCareTips from "@/components/PetCareTips";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -31,6 +33,8 @@ export default function RootLayout({ children }) {
         <Providers>
           <Navbar />
           {children}
+          <PetCareTips></PetCareTips>
+          <Ready></Ready>
           <Footer />
           <Toaster></Toaster>
         </Providers>
