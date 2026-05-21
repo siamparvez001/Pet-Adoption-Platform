@@ -1,11 +1,7 @@
 
 "use client";
 
-
-
-
-
-import SearchBar from "./SearchBar";
+ 
 
 const PetsHeader = () => {
     return (
@@ -21,9 +17,7 @@ const PetsHeader = () => {
                     Thousands of loving animals are waiting for the right family. Find your perfect companion today.
                 </p>
 
-                <div className="max-w-2xl mx-auto pt-4">
-                    <SearchBar />
-                </div>
+                
             </div>
         </header>
     );

@@ -1,21 +1,13 @@
-// export const fetchPets = async (searchTerm = '') => {
-//   // console.log();
+export const fetchPets = async (searchTerm = '', species = '', sortFee = '') => {
+    const params = new URLSearchParams();
+    if (searchTerm) params.set("searchTerm", searchTerm);
+    if (species) params.set("species", species);
+    if (sortFee) params.set("sortFee", sortFee);
 
-//   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/pet_collection?search=${searchTerm}`);
-//   const data = await res.json();
-//   return data || [];
-// };
-
-// export const fetchFeaturedPets = async () => {
-//   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/featured`);
-//   const data = await res.json();
-//   return data || [];
-// };
-export const fetchPets = async (searchTerm = '') => {
-  const url = `${process.env.NEXT_PUBLIC_API_URL}/pets?search=${searchTerm}`;
-  const res = await fetch(url);
-  const data = await res.json();
-  return data || [];
+    const url = `${process.env.NEXT_PUBLIC_API_URL}/pets?${params.toString()}`;
+    const res = await fetch(url, { cache: "no-store" });
+    const data = await res.json();
+    return data || [];
 };
 
 export const fetchFeaturedPets = async () => {
