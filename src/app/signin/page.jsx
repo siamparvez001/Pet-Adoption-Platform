@@ -11,24 +11,25 @@ const SignInPage = () => {
     const router = useRouter();
 
     const onSubmit = async (e) => {
-        e.preventDefault();
+    e.preventDefault();
 
-        const formData = new FormData(e.currentTarget);
-        const user = Object.fromEntries(formData.entries());
+    const formData = new FormData(e.target);
 
-        const { data, error } = await authClient.signIn.email({
-            email: user.email,
-            password: user.password,
-        });
+    const email = formData.get("email");
+    const password = formData.get("password");
 
-        if (data) {
-            toast.success("Welcome back!");
-            router.push("/");
-        }
-        if (error) {
-            toast.error(error.message);
-        }
-    };
+    const { data, error } = await authClient.signIn.email({
+        email,
+        password,
+    });
+
+    if (data) {
+        toast.success("Login successful");
+        router.push("/");
+    } else {
+        toast.error(error?.message);
+    }
+};
 
     const handleGoogleSignIn = async () => {
         await authClient.signIn.social({

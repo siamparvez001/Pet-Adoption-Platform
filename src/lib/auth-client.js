@@ -3,10 +3,8 @@ import { createAuthClient } from "better-auth/react"
 export const authClient = createAuthClient({
     
     // baseURL: "https://pet-adoption-platform-a188.vercel.app",
-    baseURL: process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000",
-    plugins: [
-        jwtClient()
-    ]
+    baseURL: "http://localhost:3000",
+    plugins: [jwtClient()]
 })
 
 

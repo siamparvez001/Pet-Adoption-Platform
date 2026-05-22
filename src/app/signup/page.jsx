@@ -9,67 +9,41 @@ import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 
 const SignUpPage = () => {
-    // const onSubmit = async (e) => {
-    //     e.preventDefault();
 
-    //     const formData = new FormData(e.currentTarget);
-    //     const user = Object.fromEntries(formData.entries());
-
-    //     const { data, error } = await authClient.signUp.email({
-    //         email: user.email,
-    //         password: user.password,
-    //         name: user.name,
-    //         image: user.image,
-    //     });
-
-    //     console.log({ data, error });
-
-    //     if (data) {
-    //         redirect("/");
-    //     }
-    //     if (error) {
-    //         alert(error.message);
-    //     }
-    // };
-
-
-    // const handleGoogleSignIn = async () => {
-    //     await authClient.signIn.social({
-    //         provider: "google",
-    //         callbackURL: "/",
-    //     });
-    // };
 
     const router = useRouter();
 
     const onSubmit = async (e) => {
         e.preventDefault();
 
-        const formData = new FormData(e.currentTarget);
-        const user = Object.fromEntries(formData.entries());
+        const formData = new FormData(e.target);
+
+        const name = formData.get("name");
+        const email = formData.get("email");
+        const password = formData.get("password");
+        const image = formData.get("image");
 
         const { data, error } = await authClient.signUp.email({
-            email: user.email,
-            password: user.password,
-            name: user.name,
-            image: user.image,
+            name,
+            email,
+            password,
+            image,
         });
 
         if (data) {
-            toast.success("Account created successfully!");
+            toast.success("Account created");
             router.push("/");
-        }
-        if (error) {
-            toast.error(error.message);
+        } else {
+            toast.error(error?.message);
         }
     };
-    const handleGoogleSignIn = async () => {
-    await authClient.signIn.social({
-        provider: "google",
-        callbackURL: "/",
-    });
-};
 
+    const handleGoogleSignIn = async () => {
+        await authClient.signIn.social({
+            provider: "google",
+            callbackURL: "/",
+        });
+    };
     return (
         <div className="flex items-center justify-center my-20 bg-white dark:bg-gray-950 min-h-[80vh]">
             <Form
@@ -109,6 +83,7 @@ const SignUpPage = () => {
                 >
                     <Label className="dark:text-gray-300">Email</Label>
                     <Input
+                        name="email" type="email"
                         placeholder="john@example.com"
                         className="dark:bg-gray-800 dark:text-white dark:border-gray-600"
                     />
@@ -146,6 +121,7 @@ const SignUpPage = () => {
                 >
                     <Label className="dark:text-gray-300">Password</Label>
                     <Input
+                        name="password" type="password"
                         placeholder="Enter your password"
                         className="dark:bg-gray-800 dark:text-white dark:border-gray-600"
                     />
@@ -170,7 +146,7 @@ const SignUpPage = () => {
                 <div className="flex justify-center items-center my-5">
                     <p className="dark:text-gray-400">
                         Already have an account?{" "}
-                        <a href="/signin" className="text-green-600 font-semibold hover:text-green-700">
+                        <a type="submit" href="/signin" className="text-green-600 font-semibold hover:text-green-700">
                             Sign in
                         </a>
                     </p>
