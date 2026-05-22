@@ -7,8 +7,9 @@ import { useParams } from "next/navigation";
 import toast from "react-hot-toast";
 import { MapPin } from "lucide-react";
 
-const PetDetailsPage = () => {
+const PetDetailsPage =  () => {
     const { id } = useParams();
+    
     const { data: session } = authClient.useSession();
     const user = session?.user;
 

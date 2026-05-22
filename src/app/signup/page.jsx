@@ -4,8 +4,44 @@ import { Button, Description, FieldError, Form, Input, Label, TextField } from "
 import { FaArrowRightLong } from "react-icons/fa6";
 import { redirect } from "next/navigation";
 import { authClient } from "@/lib/auth-client";
+import { FcGoogle } from "react-icons/fc";
+import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 const SignUpPage = () => {
+    // const onSubmit = async (e) => {
+    //     e.preventDefault();
+
+    //     const formData = new FormData(e.currentTarget);
+    //     const user = Object.fromEntries(formData.entries());
+
+    //     const { data, error } = await authClient.signUp.email({
+    //         email: user.email,
+    //         password: user.password,
+    //         name: user.name,
+    //         image: user.image,
+    //     });
+
+    //     console.log({ data, error });
+
+    //     if (data) {
+    //         redirect("/");
+    //     }
+    //     if (error) {
+    //         alert(error.message);
+    //     }
+    // };
+
+
+    // const handleGoogleSignIn = async () => {
+    //     await authClient.signIn.social({
+    //         provider: "google",
+    //         callbackURL: "/",
+    //     });
+    // };
+
+    const router = useRouter();
+
     const onSubmit = async (e) => {
         e.preventDefault();
 
@@ -19,15 +55,15 @@ const SignUpPage = () => {
             image: user.image,
         });
 
-        console.log({ data, error });
-
         if (data) {
-            redirect("/");
+            toast.success("Account created successfully!");
+            router.push("/");
         }
         if (error) {
-            alert(error.message);
+            toast.error(error.message);
         }
     };
+
 
     return (
         <div className="flex items-center justify-center my-20 bg-white dark:bg-gray-950 min-h-[80vh]">
@@ -134,7 +170,14 @@ const SignUpPage = () => {
                         </a>
                     </p>
                 </div>
+                <div>
+                    <p className="text-center text-gray-500 dark:text-gray-400 mb-5">Or Sign up With</p>
+                </div>
+                <div>
+                    <Button onClick={handleGoogleSignIn} className={"w-full rounded-none text-center"}> <FcGoogle></FcGoogle> Sign in with Google</Button>
+                </div>
             </Form>
+
         </div>
     );
 };

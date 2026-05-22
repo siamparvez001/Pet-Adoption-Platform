@@ -4,8 +4,12 @@ import { Button, Description, FieldError, Form, Input, Label, TextField } from "
 import { FaArrowRightLong } from "react-icons/fa6";
 import { authClient } from "@/lib/auth-client";
 import { redirect } from "next/navigation";
-
+import { FcGoogle } from "react-icons/fc";
+import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 const SignInPage = () => {
+    const router = useRouter();
+
     const onSubmit = async (e) => {
         e.preventDefault();
 
@@ -17,14 +21,20 @@ const SignInPage = () => {
             password: user.password,
         });
 
-        console.log({ data, error });
-
         if (data) {
-            redirect("/");
+            toast.success("Welcome back!");
+            router.push("/");
         }
         if (error) {
-            alert(error.message);
+            toast.error(error.message);
         }
+    };
+
+    const handleGoogleSignIn = async () => {
+        await authClient.signIn.social({
+            provider: "google",
+            callbackURL: "/",
+        });
     };
 
     return (
@@ -111,6 +121,12 @@ const SignInPage = () => {
                             Sign Up
                         </a>
                     </p>
+                </div>
+                <div>
+                    <p className="text-center text-gray-500 dark:text-gray-400 mb-5">Or Sign in With</p>
+                </div>
+                <div>
+                    <Button onClick={handleGoogleSignIn} className={"w-full rounded-none text-center"}> <FcGoogle></FcGoogle> Sign In with Google</Button>
                 </div>
             </Form>
         </div>
