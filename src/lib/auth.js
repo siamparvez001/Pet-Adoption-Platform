@@ -16,7 +16,7 @@ export const auth = betterAuth({
   session:{
     cookieCache:{
       enabled: true,
-      strategy: "jwt",
+      // strategy: "jwt",
       maxAge: 60 * 60 * 24 * 7, 
     }
   },
@@ -35,7 +35,7 @@ export const auth = betterAuth({
   },
   trustedOrigins: [
     // "http://localhost:3000",
-    "pet-adoption-platform-a188.vercel.app"
+    "https://pet-adoption-platform-a188.vercel.app"
     // "http://localhost:3001", 
   ],
   // baseURL: process.env.BETTER_AUTH_URL,
