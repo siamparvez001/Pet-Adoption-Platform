@@ -63,7 +63,12 @@ const SignUpPage = () => {
             toast.error(error.message);
         }
     };
-
+    const handleGoogleSignIn = async () => {
+    await authClient.signIn.social({
+        provider: "google",
+        callbackURL: "/",
+    });
+};
 
     return (
         <div className="flex items-center justify-center my-20 bg-white dark:bg-gray-950 min-h-[80vh]">
