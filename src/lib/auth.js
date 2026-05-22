@@ -34,7 +34,8 @@ export const auth = betterAuth({
     },
   },
   trustedOrigins: [
-    "http://localhost:3000",
+    // "http://localhost:3000",
+    "pet-adoption-platform-a188.vercel.app"
     // "http://localhost:3001", 
   ],
   // baseURL: process.env.BETTER_AUTH_URL,
