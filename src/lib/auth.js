@@ -38,7 +38,7 @@ export const auth = betterAuth({
     "https://pet-adoption-platform-a188.vercel.app"
     // "http://localhost:3001", 
   ],
-  // baseURL: process.env.BETTER_AUTH_URL,
+  baseURL: process.env.BETTER_AUTH_URL,
   socialProviders: {
     google: {
       clientId: process.env.GOOGLE_CLIENT_ID,
