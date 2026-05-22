@@ -1,4 +1,4 @@
-const BASE_URL = process.env.NEXT_PUBLIC_API_URL || "https://pet-adoption-platform-a188.vercel.app/api";
+const BASE_URL = process.env.NEXT_PUBLIC_API_URL || "https://pet-adoption-platform-server-seven.vercel.app";
 
 export const fetchPets = async (searchTerm = '', species = '', sortFee = '') => {
   const params = new URLSearchParams();
