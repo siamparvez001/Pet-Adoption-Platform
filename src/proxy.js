@@ -20,7 +20,7 @@ export const config = {
     "/dashboard/:path*",
     "/pets/add",
     "/my-requests/:path*",
-    // "/pets/:path*",
+    "/pets/:path*",
     "/add-pet/:path*",
   ],
 }

@@ -19,7 +19,7 @@ export async function GET(request) {
   if (sortFee === "fee_low") sortOption = { adoptionFee: 1 };
   if (sortFee === "fee_high") sortOption = { adoptionFee: -1 };
 
-  const pets = await db.collection("pets").find(query).sort(sortOption).toArray();
+  const pets = await db.collection("pet_collection").find(query).sort(sortOption).toArray();
   return Response.json(pets);
 }
 
@@ -43,6 +43,6 @@ export async function POST(request) {
     createdAt: new Date(),
   };
 
-  const result = await db.collection("pets").insertOne(newPet);
+  const result = await db.collection("pet_collection").insertOne(newPet);
   return Response.json({ success: true, insertedId: result.insertedId }, { status: 201 });
 }

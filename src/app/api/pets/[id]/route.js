@@ -6,7 +6,7 @@ import { ObjectId } from "mongodb";
 // Public — GET single pet
 export async function GET(request, { params }) {
   const db = await connectDB();
-  const pet = await db.collection("pets").findOne({ _id: new ObjectId(params.id) });
+  const pet = await db.collection("pet_collection").findOne({ _id: new ObjectId(params.id) });
 
   if (!pet) {
     return Response.json({ message: "Pet not found" }, { status: 404 });
@@ -28,12 +28,12 @@ export async function PUT(request, { params }) {
   const body = await request.json();
 
   // শুধু owner update করতে পারবে
-  const pet = await db.collection("pets").findOne({ _id: new ObjectId(params.id) });
+  const pet = await db.collection("pet_collection").findOne({ _id: new ObjectId(params.id) });
   if (pet.ownerEmail !== session.user.email) {
     return Response.json({ message: "Forbidden" }, { status: 403 });
   }
 
-  await db.collection("pets").updateOne(
+  await db.collection("pet_collection").updateOne(
     { _id: new ObjectId(params.id) },
     { $set: { ...body, updatedAt: new Date() } }
   );
@@ -58,6 +58,6 @@ export async function DELETE(request, { params }) {
     return Response.json({ message: "Forbidden" }, { status: 403 });
   }
 
-  await db.collection("pets").deleteOne({ _id: new ObjectId(params.id) });
+  await db.collection("pet_collection").deleteOne({ _id: new ObjectId(params.id) });
   return Response.json({ success: true });
 }
