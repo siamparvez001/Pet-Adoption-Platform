@@ -5,8 +5,9 @@ import { ObjectId } from "mongodb";
 
 // Public — GET single pet
 export async function GET(request, { params }) {
+  const { id } = await params;
   const db = await connectDB();
-  const pet = await db.collection("pet_collection").findOne({ _id: new ObjectId(params.id) });
+  const pet = await db.collection("pet_collection").findOne({ _id: new ObjectId(id) });
 
   if (!pet) {
     return Response.json({ message: "Pet not found" }, { status: 404 });
@@ -14,8 +15,9 @@ export async function GET(request, { params }) {
   return Response.json(pet);
 }
 
-// Private — PUT update pet (JWT protected)
+// Private — PUT update pet
 export async function PUT(request, { params }) {
+  const { id } = await params;
   const session = await auth.api.getSession({
     headers: await headers(),
   });
@@ -27,21 +29,21 @@ export async function PUT(request, { params }) {
   const db = await connectDB();
   const body = await request.json();
 
-  // শুধু owner update করতে পারবে
-  const pet = await db.collection("pet_collection").findOne({ _id: new ObjectId(params.id) });
+  const pet = await db.collection("pet_collection").findOne({ _id: new ObjectId(id) });
   if (pet.ownerEmail !== session.user.email) {
     return Response.json({ message: "Forbidden" }, { status: 403 });
   }
 
   await db.collection("pet_collection").updateOne(
-    { _id: new ObjectId(params.id) },
+    { _id: new ObjectId(id) },
     { $set: { ...body, updatedAt: new Date() } }
   );
   return Response.json({ success: true });
 }
 
-// Private — DELETE pet (JWT protected)
+// Private — DELETE pet
 export async function DELETE(request, { params }) {
+  const { id } = await params;
   const session = await auth.api.getSession({
     headers: await headers(),
   });
@@ -52,12 +54,11 @@ export async function DELETE(request, { params }) {
 
   const db = await connectDB();
 
-  // শুধু owner delete করতে পারবে
-  const pet = await db.collection("pets").findOne({ _id: new ObjectId(params.id) });
+  const pet = await db.collection("pet_collection").findOne({ _id: new ObjectId(id) });
   if (pet.ownerEmail !== session.user.email) {
     return Response.json({ message: "Forbidden" }, { status: 403 });
   }
 
-  await db.collection("pet_collection").deleteOne({ _id: new ObjectId(params.id) });
+  await db.collection("pet_collection").deleteOne({ _id: new ObjectId(id) });
   return Response.json({ success: true });
 }
