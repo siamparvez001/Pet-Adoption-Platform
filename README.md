@@ -1,36 +1,133 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# PawsHome 🐾
+
+A full-stack pet adoption platform where animal lovers can find, list, and adopt pets. PawsHome connects pet owners with potential adopters through a clean, modern interface — making the adoption journey simple and joyful for everyone involved.
+
+## Live URL
+
+🌐 [https://pet-adoption-platform-a188.vercel.app](https://pet-adoption-platform-a188.vercel.app)
+
+---
+
+## Purpose
+
+Thousands of animals need loving homes every day. PawsHome was built to bridge the gap between pet owners who need to rehome their animals and families who are ready to adopt. The platform lets users browse available pets, filter by species or adoption fee, submit adoption requests, and manage their own listings — all in one place.
+
+---
+
+## Features
+
+- **Browse & Search Pets** — Explore all available pets with real-time search by name, filter by species (Dog, Cat, Bird, Rabbit), and sort by adoption fee (low to high or high to low)
+- **Secure Authentication with JWT** — Email/password sign-up and Google OAuth login powered by Better Auth, with JWT-based session management to protect private routes and API endpoints
+- **Submit Adoption Requests** — Logged-in users can submit adoption requests with a preferred pickup date and personal message directly to the pet owner
+- **Personal Dashboard** — Each user has a dashboard to manage their own pet listings (add, edit, delete), track listing status (Available / Adopted), and view all their submitted adoption requests with live status updates
+- **Featured Pets Section** — The homepage highlights a curated selection of available pets so visitors can start exploring without any extra steps
+- **Dark Mode Support** — Full dark/light theme toggle powered by next-themes, applied instantly across every page
+- **Responsive Design** — Fully mobile-friendly layout built with Tailwind CSS v4, works smoothly on phones, tablets, and desktops
+
+---
+
+## NPM Packages Used
+
+### Frontend
+
+| Package | Purpose |
+|---|---|
+| `next` v16 | App Router, server components, dynamic routing |
+| `react` v19 | UI library |
+| `better-auth` | Authentication — email/password + Google OAuth with JWT plugin |
+| `@better-auth/mongo-adapter` | MongoDB adapter for Better Auth |
+| `mongodb` | MongoDB Node.js driver for database operations |
+| `@heroui/react` | UI component library (forms, buttons, avatars) |
+| `@heroui/styles` | Styles for HeroUI components |
+| `tailwindcss` v4 | Utility-first CSS framework with dark mode support |
+| `next-themes` | Dark/light theme switching |
+| `lucide-react` | Icon library used throughout the UI |
+| `react-icons` | Additional icons (Google, arrow, location etc.) |
+| `react-hot-toast` | Toast notifications for success and error feedback |
+| `use-debounce` | Debounced search input to reduce unnecessary API calls |
+
+### Backend
+
+| Package | Purpose |
+|---|---|
+| `express` | REST API server |
+| `mongodb` | MongoDB Node.js driver |
+| `better-auth` | JWT verification for protected routes |
+| `cors` | Cross-origin request handling between frontend and backend |
+| `dotenv` | Environment variable management |
+
+---
+
+## Environment Variables
+
+### Backend `.env`
+```
+PORT=8000
+MONGODB_URI=your_mongodb_connection_string
+```
+
+### Frontend `.env`
+```
+BETTER_AUTH_SECRET=your_secret
+BETTER_AUTH_URL=your_frontend_url
+NEXT_PUBLIC_API_URL=your_backend_url
+NEXT_PUBLIC_APP_URL=your_frontend_url
+GOOGLE_CLIENT_ID=your_google_client_id
+GOOGLE_CLIENT_SECRET=your_google_client_secret
+MONGODB_URI=your_mongodb_connection_string
+```
+
+---
 
 ## Getting Started
 
-First, run the development server:
+### 1. Clone the repositories
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+# Frontend
+git clone <frontend-repo-url>
+cd pet-adoption-platform
+npm install
+
+# Backend
+git clone <backend-repo-url>
+cd pet-server
+npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 2. Add environment variables
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+Create `.env` files in both projects using the variables listed above.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 3. Run locally
 
-## Learn More
+```bash
+# Backend (port 8000)
+node index.js
 
-To learn more about Next.js, take a look at the following resources:
+# Frontend (port 3000)
+npm run dev
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Project Structure
 
-## Deploy on Vercel
+```
+pet-adoption-platform/
+├── src/
+│   ├── app/
+│   │   ├── add-pet/        # Dashboard (add pet, listings, requests)
+│   │   ├── pets/           # All pets page + individual pet details
+│   │   ├── signin/         # Sign in page
+│   │   └── signup/         # Sign up page
+│   ├── components/         # Reusable UI components
+│   └── lib/
+│       ├── auth.js         # Better Auth server config
+│       ├── auth-client.js  # Better Auth client config
+│       ├── connectDB.js    # MongoDB connection
+│       └── pets/           # Pet data fetching utilities
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+pet-server/
+└── index.js                # Express REST API
+```
