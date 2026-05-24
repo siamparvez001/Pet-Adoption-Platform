@@ -29,9 +29,9 @@ const Footer = () => {
                 <div className="flex flex-col gap-2">
                     <h1 className="text-xl font-bold">Quick Links</h1>
                     <Link href="/" className="opacity-70 hover:opacity-100">Home</Link>
-                    <Link href="/all-pets" className="opacity-70 hover:opacity-100">All Pets</Link>
-                    <Link href="/my-requests" className="opacity-70 hover:opacity-100">My Requests</Link>
-                    <Link href="/add-pet" className="opacity-70 hover:opacity-100">Add Pet</Link>
+                    {/* <Link href="/all-pets" className="opacity-70 hover:opacity-100">All Pets</Link> */}
+                    <Link href="/pets" className="opacity-70 hover:opacity-100">All Pets</Link>
+                    <Link href="/add-pet" className="opacity-70 hover:opacity-100">My Requests</Link>
                 </div>
                 <div className="flex flex-col gap-2">
                     <h1 className="text-xl font-bold">Follow Us</h1>

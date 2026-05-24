@@ -6,6 +6,7 @@ import toast from "react-hot-toast";
 import MyRequests from "@/components/MyRequests";
 import MyListings from "@/components/MyListings";
 import DashboardSidebar from "@/components/DashboardSidebar";
+import { Menu, X } from "lucide-react";
 
 const AddPetPage = () => {
     const { data: session } = authClient.useSession();
@@ -13,6 +14,7 @@ const AddPetPage = () => {
 
     const [activeTab, setActiveTab] = useState("add");
     const [loading, setLoading] = useState(false);
+    const [sidebarOpen, setSidebarOpen] = useState(false);
 
     const [form, setForm] = useState({
         name: "",
@@ -61,6 +63,7 @@ const AddPetPage = () => {
                     adoptionFee: "",
                     description: "",
                 });
+                setActiveTab("listings");
             } else {
                 toast.error("Something went wrong. Try again.");
             }
@@ -77,20 +80,49 @@ const AddPetPage = () => {
     return (
         <div className="min-h-screen bg-gray-50 dark:bg-gray-950 flex">
 
-            <DashboardSidebar activeTab={activeTab} setActiveTab={setActiveTab} />
+            {/* Mobile overlay */}
+            {sidebarOpen && (
+                <div
+                    className="fixed inset-0 bg-black/40 z-20 md:hidden"
+                    onClick={() => setSidebarOpen(false)}
+                />
+            )}
 
-            <main className="flex-1 p-10 overflow-y-auto">
+            {/* Sidebar */}
+            <div className={`
+                fixed md:static z-30 h-full transition-transform duration-300
+                ${sidebarOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"}
+            `}>
+                <DashboardSidebar
+                    activeTab={activeTab}
+                    setActiveTab={(tab) => {
+                        setActiveTab(tab);
+                        setSidebarOpen(false);
+                    }}
+                />
+            </div>
 
-                {/* My Listings Tab */}
+            <main className="flex-1 p-4 md:p-10 overflow-y-auto">
+
+                {/* Mobile top bar */}
+                <div className="flex items-center gap-3 mb-6 md:hidden">
+                    <button
+                        onClick={() => setSidebarOpen(true)}
+                        className="p-2 rounded-xl border border-gray-200 dark:border-gray-700 dark:text-white"
+                    >
+                        <Menu className="w-5 h-5" />
+                    </button>
+                    <h2 className="font-semibold dark:text-white capitalize">{activeTab}</h2>
+                </div>
+
                 {activeTab === "listings" && <MyListings setActiveTab={setActiveTab} />}
 
-                {/* Add Pet Tab */}
                 {activeTab === "add" && (
                     <div className="max-w-3xl">
                         <h1 className="text-3xl font-bold dark:text-white mb-8">Add New Pet</h1>
                         <form onSubmit={handleSubmit} className="flex flex-col gap-6">
 
-                            <div className="grid grid-cols-2 gap-4">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                 <div>
                                     <label className={labelClass}>Pet name</label>
                                     <input name="name" value={form.name} onChange={handleChange} placeholder="e.g. Bruno" required className={inputClass} />
@@ -107,7 +139,7 @@ const AddPetPage = () => {
                                 </div>
                             </div>
 
-                            <div className="grid grid-cols-2 gap-4">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                 <div>
                                     <label className={labelClass}>Breed</label>
                                     <input name="breed" value={form.breed} onChange={handleChange} placeholder="Golden Retriever" required className={inputClass} />
@@ -118,7 +150,7 @@ const AddPetPage = () => {
                                 </div>
                             </div>
 
-                            <div className="grid grid-cols-2 gap-4">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                 <div>
                                     <label className={labelClass}>Gender</label>
                                     <select name="gender" value={form.gender} onChange={handleChange} className={inputClass}>
@@ -137,7 +169,7 @@ const AddPetPage = () => {
                                 <input name="image" value={form.image} onChange={handleChange} placeholder="https://i.ibb.co/..." className={inputClass} />
                             </div>
 
-                            <div className="grid grid-cols-2 gap-4">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                 <div>
                                     <label className={labelClass}>Health status</label>
                                     <select name="healthStatus" value={form.healthStatus} onChange={handleChange} className={inputClass}>
@@ -156,7 +188,7 @@ const AddPetPage = () => {
                                 </div>
                             </div>
 
-                            <div className="grid grid-cols-2 gap-4">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                 <div>
                                     <label className={labelClass}>Adoption fee (৳)</label>
                                     <input name="adoptionFee" value={form.adoptionFee} onChange={handleChange} type="number" placeholder="2000" required className={inputClass} />
@@ -169,20 +201,17 @@ const AddPetPage = () => {
 
                             <div>
                                 <label className={labelClass}>Description</label>
-                                <textarea name="description" value={form.description} onChange={handleChange} placeholder="Bruno is a friendly, playful dog who loves children..." rows={4} className={inputClass} />
+                                <textarea name="description" value={form.description} onChange={handleChange} placeholder="Bruno is a friendly, playful dog..." rows={4} className={inputClass} />
                             </div>
 
                             <button type="submit" disabled={loading} className="w-fit px-10 py-3 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-2xl transition-colors disabled:opacity-50">
                                 {loading ? "Submitting..." : "Submit"}
                             </button>
-
                         </form>
                     </div>
                 )}
 
-                {/* My Requests Tab */}
                 {activeTab === "requests" && <MyRequests />}
-
             </main>
         </div>
     );

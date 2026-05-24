@@ -16,7 +16,7 @@ const speciesEmoji = {
 };
 
 const PetCard = ({ pet }) => {
-    // case-insensitive check — "Adopted" বা "adopted" দুটোই কাজ করবে
+    
     const isAdopted = pet.status?.toLowerCase() === "adopted";
 
     const handleAdoptClick = () => {
@@ -72,7 +72,7 @@ const PetCard = ({ pet }) => {
 
                 <div className="flex items-center gap-1 text-sm font-semibold text-rose-500 dark:text-rose-400">
                     <DollarSign size={14} />
-                    {pet.adoptionFee === 0 ? "Free" : `$${pet.adoptionFee} adoption fee`}
+                    {pet.adoptionFee === 0 ? "Free" : `৳${Number(pet.adoptionFee).toLocaleString()} adoption fee`}
                 </div>
             </div>
 

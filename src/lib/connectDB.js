@@ -1,8 +1,15 @@
 import { MongoClient } from "mongodb";
 
-const client = new MongoClient(process.env.MONGODB_URI);
+let client;
+let clientPromise;
+
+if (!global._mongoClientPromise) {
+    client = new MongoClient(process.env.MONGODB_URI);
+    global._mongoClientPromise = client.connect();
+}
+clientPromise = global._mongoClientPromise;
 
 export const connectDB = async () => {
-  await client.connect();
-  return client.db("pet_adoption");
+    const client = await clientPromise;
+    return client.db("pet_adoption");
 };
