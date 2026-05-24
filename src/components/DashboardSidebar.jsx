@@ -8,7 +8,7 @@ const DashboardSidebar = ({ activeTab, setActiveTab }) => {
     const user = session?.user;
 
     return (
-        <aside className="w-72 bg-white dark:bg-gray-900 border-r border-gray-100 dark:border-gray-700 p-6 flex flex-col gap-6">
+        <aside className="w-72 h-screen bg-white dark:bg-gray-900 border-r border-gray-100 dark:border-gray-700 p-6 flex flex-col gap-6">
 
             {/* User info */}
             <div className="flex items-center gap-3 pb-6 border-b border-gray-100 dark:border-gray-700">
@@ -32,8 +32,8 @@ const DashboardSidebar = ({ activeTab, setActiveTab }) => {
                         key={item.key}
                         onClick={() => setActiveTab(item.key)}
                         className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-colors ${activeTab === item.key
-                                ? "bg-green-50 dark:bg-green-900/30 text-green-600 dark:text-green-400"
-                                : "text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800"
+                            ? "bg-green-50 dark:bg-green-900/30 text-green-600 dark:text-green-400"
+                            : "text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800"
                             }`}
                     >
                         {item.icon}
